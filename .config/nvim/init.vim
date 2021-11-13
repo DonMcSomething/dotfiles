@@ -43,14 +43,19 @@ call plug#begin('~/.config/nvim/plugged')
 " Themes
 Plug 'haishanh/night-owl.vim'
 " Code completion
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Tags
 Plug 'alvan/vim-closetag'
 Plug 'tpope/vim-surround'
 " Misc
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+Plug 'airblade/vim-gitgutter'
+Plug 'unblevable/quick-scope'
 
 call plug#end()
+
+" Make GitGutter work for my dotfiles repo
+let g:gitgutter_git_args='--git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 " Colorscheme (have to have this after vim-plug for path reasons)
 colorscheme night-owl
