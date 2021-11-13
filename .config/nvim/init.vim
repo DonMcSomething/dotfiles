@@ -1,8 +1,24 @@
 " This line makes pacman-installed global Arch Linux vim packages work.
 source /usr/share/nvim/archlinux.vim
 
+" Sepreate Config for CoC stuff
+source $HOME/.config/nvim/coc-bindings.vim
+
+" From Coc Readme
+set updatetime=300
+
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" Don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" Always show signcolumns
+set signcolumn=yes
+
 "Set leader
-let mapleader=" "
+let mapleader=","
 
 " Vertical centering
 autocmd InsertEnter * norm zz
@@ -64,3 +80,6 @@ syntax enable
 " Fix weird night-owl default cursor line colors
 highlight CursorLine cterm=bold guibg=#2b2b2b
 highlight CursorColumn cterm=bold guibg=#2b2b2b
+
+" --Keybindings--
+nmap <leader>e :CocCommand explorer<CR>
