@@ -64,6 +64,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'alvan/vim-closetag'
 Plug 'tpope/vim-surround'
 " Misc
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'airblade/vim-gitgutter'
 Plug 'unblevable/quick-scope'
@@ -75,11 +77,37 @@ let g:gitgutter_git_args='--git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 " Colorscheme (have to have this after vim-plug for path reasons)
 colorscheme night-owl
-syntax enable
+
+" Highlighting with TreeSitter
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
+EOF
 
 " Fix weird night-owl default cursor line colors
 highlight CursorLine cterm=bold guibg=#2b2b2b
 highlight CursorColumn cterm=bold guibg=#2b2b2b
 
+" Indent Line
+
+lua <<EOF
+vim.opt.list = true
+vim.opt.listchars:append("space:⋅")
+vim.opt.listchars:append("eol:↴")
+
+require("indent_blankline").setup {
+    space_char_blankline = " ",
+    show_current_context = true,
+    show_current_context_start = true,
+}
+EOF
 " --Keybindings--
 nmap <leader>e :CocCommand explorer<CR>
