@@ -1,3 +1,6 @@
+# lol I'm one of those assholes now
+neofetch
+
 # Do nothing if not interactive
 [[ $- != *i* ]] && return
 
@@ -30,7 +33,7 @@ bindkey -M menuselect 'right' vi-forward-char
 
 # Hotkeys
 alias config='/usr/bin/git --git-dir=/home/don/.cfg/ --work-tree=/home/don'
-
+source /home/don/.config/zsh/aliases
 # vi mode
 bindkey -v
 export KEYTIMEOUT=1
@@ -41,6 +44,7 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
+bindkey -v '^[[3~' delete-char
 
 # Change cursor shape for different vi modes.
 function zle-keymap-select {
@@ -80,6 +84,9 @@ bindkey -s '^o' 'lfcd\n'
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
+# The fuck
+eval $(thefuck --alias)
+
 # Spaceship Prompt
 
 SPACESHIP_PROMPT_ADD_NEWLINE=false
@@ -117,3 +124,4 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 autoload -U promptinit; promptinit
 prompt spaceship
+
