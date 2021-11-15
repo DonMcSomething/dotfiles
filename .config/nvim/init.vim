@@ -11,6 +11,12 @@ set updatetime=300
 set nobackup
 set nowritebackup
 
+" Some funky tab stuff
+set tabstop=8
+set softtabstop=4
+set shiftwidth=4
+set noexpandtab
+autocmd Filetype yaml setlocal softtabstop=2 shiftwidth=2
 " Don't give |ins-completion-menu| messages.
 set shortmess+=c
 
