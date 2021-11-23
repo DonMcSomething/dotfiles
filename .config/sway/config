@@ -31,12 +31,14 @@ exec_always --no-startup-id exec sway-dynamic-names
 
 # Monitor Layout
 #
+    #Left
+    output DP-2 pos 0 1080 mode 1920x1080@60Hz
     #Main
-    output DP-1 pos 0 1080 mode 2560x1440@165Hz adaptive_sync on
+    output DP-1 pos 1920 1080 mode 2560x1440@165Hz adaptive_sync on
     #Right
-    output DP-3 pos 2560 1080 mode 1920x1080@120Hz
+    output DP-3 pos 4480 1080 mode 1920x1080@120Hz
     #Top
-    output HDMI-A-1 pos 640 0 mode 1920x1080@60Hz
+    output HDMI-A-1 pos 1720 0 mode 1920x1080@60Hz
 
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
@@ -112,7 +114,7 @@ exec_always --no-startup-id exec sway-dynamic-names
     bindsym $mod+7 workspace number 7
     bindsym $mod+8 workspace number 8
     bindsym $mod+9 workspace number 9
-    bindsym $mod+0 workspace number 10
+    bindsym $mod+0 workspace number 0
     # Move focused container to workspace
     bindsym $mod+Shift+1 move container to workspace number 1
     bindsym $mod+Shift+2 move container to workspace number 2
