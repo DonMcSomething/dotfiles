@@ -26,6 +26,8 @@ set signcolumn=yes
 "Set leader
 let mapleader=","
 
+" Open explorer on startup
+autocmd VimEnter * CocCommand explorer
 " Vertical centering
 autocmd InsertEnter * norm zz
 
@@ -117,3 +119,5 @@ require("indent_blankline").setup {
 EOF
 " --Keybindings--
 nmap <leader>e :CocCommand explorer<CR>
+cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
+cnoreabbrev <expr> Q ((getcmdtype() is# ':' && getcmdline() is# 'Q')?('q'):('Q'))
