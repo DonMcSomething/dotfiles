@@ -23,6 +23,17 @@ set $menu wofi --show=drun --lines=5 --prompt=""
     # Removes the title bar of each window.
     default_border pixel 3
 
+#GTK3 stuff
+set $gnome-schema org.gnome.desktop.interface
+
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
+exec hash dbus-update-activation-environment 2>/dev/null && \
+     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
+exec_always {
+    gsettings set $gnome-schema gtk-theme "Arc-Dark"
+}
 # Wallpaper
 exec ~/.azotebg
 
@@ -32,11 +43,11 @@ exec_always --no-startup-id exec sway-dynamic-names
 # Monitor Layout
 #
     #Left
-    output DP-2 pos 0 1080 mode 1920x1080@60Hz
+    output DP-2 pos 0 1080 mode 1920x1080@60Hz transform 90
     #Main
-    output DP-1 pos 1920 1080 mode 2560x1440@165Hz adaptive_sync on
+    output DP-1 pos 1080 1080 mode 2560x1440@165Hz adaptive_sync on
     #Right
-    output DP-3 pos 4480 1080 mode 1920x1080@120Hz
+    output DP-3 pos 3640 1080 mode 1920x1080@120Hz
     #Top
     output HDMI-A-1 pos 1720 0 mode 1920x1080@60Hz
 
@@ -62,6 +73,8 @@ exec_always --no-startup-id exec sway-dynamic-names
     # Start your launcher
     bindsym $mod+space exec $menu
 
+    #Screenshots
+    bindsym $mod+Print exec grim -g "$(slurp)" - | wl-copy
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
@@ -76,7 +89,7 @@ exec_always --no-startup-id exec sway-dynamic-names
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
     #Lock screen
-    bindsym Mod4+l exec swaylock -f -c 000000
+    bindsym Mod4+l exec ~/.config/sway/lock
 #
 # Moving around:
 #
