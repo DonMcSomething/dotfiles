@@ -12,7 +12,15 @@ set $term alacritty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu wofi --show=drun --lines=5 --prompt=""
+set $menu j4-dmenu-desktop --dmenu='bemenu -i -m focused -H 30 --nb "#011627" --nf "#d6deeb" --tf "#ff5874" --tb "222222" --fb "#222222" --ff "#d6deeb" --hb "#444444" --hf "#addb67" --fn "pango:DejaVu Sans Mono 12"' --term='Alacritty'
+#dmenu
+#set $menu dmenu_path | dmenu | xargs swaymsg exec --
+
+#Wofi
+#set $menu wofi --show=drun --lines=5 --prompt=""
+
+# Screen share stuff
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
 ### Output configuration
 #
@@ -22,6 +30,9 @@ set $menu wofi --show=drun --lines=5 --prompt=""
 
     # Removes the title bar of each window.
     default_border pixel 3
+
+#Night light
+exec wlsunset -l 29.9 -L -90.1
 
 #GTK3 stuff
 set $gnome-schema org.gnome.desktop.interface
@@ -38,7 +49,7 @@ exec_always {
 exec ~/.azotebg
 
 # Auto rename workspaces with icons
-exec_always --no-startup-id exec sway-dynamic-names
+#exec_always --no-startup-id exec sway-dynamic-names
 
 # Monitor Layout
 #
@@ -74,7 +85,10 @@ exec_always --no-startup-id exec sway-dynamic-names
     bindsym $mod+space exec $menu
 
     #Screenshots
-    bindsym $mod+Print exec grim -g "$(slurp)" - | wl-copy
+    bindsym Shift+Print exec grim -g "$(slurp)" - | wl-copy
+
+    bindsym $mod+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') - | wl-copy
+
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
@@ -117,30 +131,56 @@ exec_always --no-startup-id exec sway-dynamic-names
 #
 # Workspaces:
 #
+    # Workspace variables
+    set $ws1 "1:"
+    set $ws2 "2:"
+    set $ws3 "3:"
+    set $ws4 "4:"
+    set $ws5 "5:"
+    set $ws6 "6:"
+    set $ws7 "7:"
+    set $ws8 "8:"
+    set $ws9 "9:"
+    set $ws0 "0:"
+
+    # Names and output bindings
+    workspace $ws1 output DP-1
+    workspace $ws2 output DP-2
+    workspace $ws3 output DP-1
+    workspace $ws4 output DP-1
+    workspace $ws5 output DP-3
+    workspace $ws9 output DP-3
+
     # Switch to workspace
-    bindsym $mod+1 workspace number 1
-    bindsym $mod+2 workspace number 2
-    bindsym $mod+3 workspace number 3
-    bindsym $mod+4 workspace number 4
-    bindsym $mod+5 workspace number 5
-    bindsym $mod+6 workspace number 6
-    bindsym $mod+7 workspace number 7
-    bindsym $mod+8 workspace number 8
-    bindsym $mod+9 workspace number 9
-    bindsym $mod+0 workspace number 0
+    bindsym $mod+1 workspace $ws1
+    bindsym $mod+2 workspace $ws2
+    bindsym $mod+3 workspace $ws3
+    bindsym $mod+4 workspace $ws4
+    bindsym $mod+5 workspace $ws5
+    bindsym $mod+6 workspace $ws6
+    bindsym $mod+7 workspace $ws7
+    bindsym $mod+8 workspace $ws8
+    bindsym $mod+9 workspace $ws9
+    bindsym $mod+0 workspace $ws0
+
     # Move focused container to workspace
-    bindsym $mod+Shift+1 move container to workspace number 1
-    bindsym $mod+Shift+2 move container to workspace number 2
-    bindsym $mod+Shift+3 move container to workspace number 3
-    bindsym $mod+Shift+4 move container to workspace number 4
-    bindsym $mod+Shift+5 move container to workspace number 5
-    bindsym $mod+Shift+6 move container to workspace number 6
-    bindsym $mod+Shift+7 move container to workspace number 7
-    bindsym $mod+Shift+8 move container to workspace number 8
-    bindsym $mod+Shift+9 move container to workspace number 9
-    bindsym $mod+Shift+0 move container to workspace number 10
-    # Note: workspaces can have any name you want, not just numbers.
-    # We just use 1-10 as the default.
+    bindsym $mod+Shift+1 move container to workspace $ws1
+    bindsym $mod+Shift+2 move container to workspace $ws2
+    bindsym $mod+Shift+3 move container to workspace $ws3
+    bindsym $mod+Shift+4 move container to workspace $ws4
+    bindsym $mod+Shift+5 move container to workspace $ws5
+    bindsym $mod+Shift+6 move container to workspace $ws6
+    bindsym $mod+Shift+7 move container to workspace $ws7
+    bindsym $mod+Shift+8 move container to workspace $ws8
+    bindsym $mod+Shift+9 move container to workspace $ws9
+    bindsym $mod+Shift+0 move container to workspace $ws0
+
+    # Putting things where they go
+    assign [class="Steam"] $ws3
+    assign [class="steam_app_*"] $ws0
+    for_window [class="discord"] $ws2
+    assign [app_id="spt"] $ws9
+    assign [app_id="firefox"] $ws5
 #
 # Layout stuff:
 #
@@ -209,6 +249,13 @@ bindsym $mod+r mode "resize"
 bar {
 	swaybar_command waybar
 }
+
+###Auto-start
+#
+exec --no-startup-id steam
+exec vivaldi-stable
+exec discord
+exec "alacritty --class spt -e spt"
 
 ###Source
 #
