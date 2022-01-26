@@ -54,11 +54,11 @@ exec ~/.azotebg
 # Monitor Layout
 #
     #Left
-    output DP-2 pos 0 1080 mode 1920x1080@60Hz transform 90
+    output DP-2 pos 0 0 mode 1920x1080@60Hz transform 90
     #Main
-    output DP-1 pos 1080 1080 mode 2560x1440@165Hz adaptive_sync on
+    output DP-1 pos 1080 0 mode 2560x1440@165Hz adaptive_sync on
     #Right
-    output DP-3 pos 3640 1080 mode 1920x1080@120Hz
+    output DP-3 pos 3640 0 mode 1920x1080@120Hz
     #Top
     output HDMI-A-1 pos 1720 0 mode 1920x1080@60Hz
 
@@ -178,9 +178,11 @@ exec ~/.azotebg
     # Putting things where they go
     assign [class="Steam"] $ws3
     assign [class="steam_app_*"] $ws0
+    for_window [class="steam_app_*"] $ws0
     for_window [class="discord"] $ws2
     assign [app_id="spt"] $ws9
     assign [app_id="firefox"] $ws5
+    for_window [app_id="imv"] floating enable
 #
 # Layout stuff:
 #
@@ -256,6 +258,7 @@ exec --no-startup-id steam
 exec vivaldi-stable
 exec discord
 exec "alacritty --class spt -e spt"
+exec xrandr --output XWAYLAND0 --primary
 
 ###Source
 #
