@@ -7,6 +7,8 @@ neofetch
 # Emable colors and change prompt
 autoload -U colors && colors
 
+# Add .scripts to $PATH
+export PATH=$HOME/.scripts:$PATH
 # History
 HISTSIZE=10000
 SAVEHIST=10000
@@ -87,6 +89,8 @@ bindkey '^e' edit-command-line
 # The fuck
 eval $(thefuck --alias)
 
+# fzf
+source /usr/share/fzf/key-bindings.zsh
 # Spaceship Prompt
 
 SPACESHIP_PROMPT_ADD_NEWLINE=false

@@ -27,7 +27,8 @@ set signcolumn=yes
 let mapleader=","
 
 " Open explorer on startup
-autocmd VimEnter * CocCommand explorer
+" autocmd VimEnter * CocCommand explorer
+
 " Vertical centering
 autocmd InsertEnter * norm zz
 
@@ -40,11 +41,14 @@ set clipboard+=unnamedplus
 " --Basic settings--
 " Line numbers
 set number relativenumber
+
 " Search with / ignores case unless uppercase
 set ignorecase
 set smartcase
+
 " True color
 set termguicolors
+
 " Mouse support
 set mouse=a
 
@@ -105,7 +109,6 @@ highlight CursorLine cterm=bold guibg=#2b2b2b
 highlight CursorColumn cterm=bold guibg=#2b2b2b
 
 " Indent Line
-
 lua <<EOF
 vim.opt.list = true
 vim.opt.listchars:append("space:⋅")
