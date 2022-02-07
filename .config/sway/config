@@ -266,7 +266,10 @@ exec xrandr --output XWAYLAND0 --primary
 exec --no-startup-id steam
 exec vivaldi-stable
 exec --no-startup-id discord
+exec --no-startup-id "pactl load-module module-remap-sink sink_name=cava-loop"
 exec "alacritty --class spt -e spt"
+exec "alacritty --class spt -e sptlrx"
+exec "alacritty --class spt -e cava"
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
 ###Source
