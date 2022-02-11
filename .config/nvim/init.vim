@@ -70,10 +70,15 @@ set splitbelow splitright
 call plug#begin('~/.config/nvim/plugged')
 " Themes
 Plug 'haishanh/night-owl.vim'
+Plug 'vim-airline/vim-airline-themes'
 " Code completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Terminal things
+Plug 'kassio/neoterm'
 "Bufferline
 Plug 'akinsho/bufferline.nvim'
+Plug 'vim-airline/vim-airline'
 " Tags
 Plug 'alvan/vim-closetag' "-- autoclose pairs
 Plug 'tpope/vim-surround' "-- change surrouding quotes and stuff
@@ -106,7 +111,7 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
-" Bufferline stuff
+" Tabline stuff
 lua << EOF
 require("bufferline").setup{
   options = {
@@ -140,7 +145,13 @@ require("bufferline").setup{
     diagnostics = coc,
     diagnostics_update_in_insert = false,
     diagnostics_indicator = function(count, level, diagnostics_dict, context)
-      return "("..count..")"
+    local s = " "
+     for e, n in pairs(diagnostics_dict) do
+	local sym = e == "error" and " "
+          or (e == "warning" and " " or "" )
+	s = s .. n .. sym
+     end
+     return s
     end,
     offsets = {{filetype = "coc-explorer", text = "File Explorer", text_align = "left"}},
     show_buffer_icons = true, -- disable filetype icons for buffers
@@ -157,6 +168,14 @@ require("bufferline").setup{
   }
 }
 EOF
+
+" Airline stuff
+let g:airline_theme='night_owl'
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline_powerline_fonts = 1
+let g:airline_filetype_overrides = {'coc-explorer':  [ 'CoC Explorer', '' ]}
+let g:airline_skip_empty_sections = 1
+
 " Fix weird night-owl default cursor line colors
 highlight CursorLine cterm=bold guibg=#2b2b2b
 highlight CursorColumn cterm=bold guibg=#2b2b2b
