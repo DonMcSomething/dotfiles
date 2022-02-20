@@ -1,0 +1,10 @@
+# Take a look at the mako manpage with the command:
+#   man 5 mako
+# To view all configuration options.
+#
+font=DejaVu Sans Mono 12
+layer=top
+background-color=#011627
+text-color=#d6deeb
+border-color=#2b2b2b
+border-radius=0,0,10,10
