@@ -111,6 +111,16 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
+"Terminal stuff
+let g:neoterm_callbacks = {}
+    function! g:neoterm_callbacks.before_new()
+      if winwidth('.') > 100
+        let g:neoterm_default_mod = 'botright vertical'
+      else
+        let g:neoterm_default_mod = 'botright'
+      end
+    endfunction
+
 " Tabline stuff
 lua << EOF
 require("bufferline").setup{
@@ -153,6 +163,16 @@ require("bufferline").setup{
      end
      return s
     end,
+    custom_filter = function(buf_number, buf_numbers)
+      -- filter out filetypes you don't want to see
+       if vim.bo[buf_number].filetype ~= "terminal" then
+         return true
+       end
+       -- filter out by buffer name
+       if vim.fn.bufname(buf_number) ~= "zsh" then
+         return true
+       end
+    end,
     offsets = {{filetype = "coc-explorer", text = "File Explorer", text_align = "left"}},
     show_buffer_icons = true, -- disable filetype icons for buffers
     show_buffer_close_icons = true,
@@ -168,6 +188,9 @@ require("bufferline").setup{
   }
 }
 EOF
+
+nnoremap <silent>[b :BufferLineCycleNext<CR>
+nnoremap <silent>b] :BufferLineCyclePrev<CR>
 
 " Airline stuff
 let g:airline_theme='night_owl'
