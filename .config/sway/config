@@ -16,7 +16,8 @@ set $term alacritty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu j4-dmenu-desktop --dmenu='bemenu -i -m focused -H 30 --nb "#011627" --nf "#d6deeb" --tf "#ff5874" --tb "222222" --fb "#222222" --ff "#d6deeb" --hb "#444444" --hf "#addb67" --fn "pango:DejaVu Sans Mono 12"' --term='Alacritty'
+set $menu j4-dmenu-desktop --dmenu='bemenu -i -m focused -H 32 --nb "#011627" --nf "#d6deeb" --tf "#7fdbca" --tb "#011627" --fb "#222222" --ff "#d6deeb" --hb "#011627" --hf "#addb67" --fn "pango:DejaVu Sans Mono 12"' --term='Alacritty'
+
 #dmenu
 #set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
@@ -24,16 +25,23 @@ set $menu j4-dmenu-desktop --dmenu='bemenu -i -m focused -H 30 --nb "#011627" --
 #set $menu wofi --show=drun --lines=5 --prompt=""
 
 # Screen share stuff
-exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-
+exec /home/don/.scripts/screenshare.sh
 ### Output configuration
 #
+
 #Window appearence
     # A "number"-pixel border around every window.
     gaps inner 10
 
     # Removes the title bar of each window.
     default_border pixel 3
+
+    #colors
+    # class                 border  backgr. text    indicator child_border
+    client.focused          #2b2b2b #285577 #ffffff #2e9ef4   #2b2b2b
+    client.focused_inactive #011627 #5f676a #ffffff #484e50   #011627
+    client.unfocused        #011627 #222222 #888888 #292d2e   #011627
+
 
 #Night light
 exec wlsunset -l 29.9 -L -90.1
@@ -71,7 +79,8 @@ exec ~/.azotebg
 ### Idle configuration
 #
  exec swayidle -w \
-          timeout 1800 'swaylock -f -c 000000' \
+          timeout 800 'swaylock -f -c 000000' \
+	  timeout 300 'systemctl suspend' \
           timeout 300 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
           before-sleep 'swaylock -f -c 000000'
 
@@ -136,10 +145,10 @@ exec ~/.azotebg
 # Workspaces:
 #
     # Workspace variables
-    set $ws1 "1:"
+    set $ws1 "1:"
     set $ws2 "2:"
     set $ws3 "3:"
-    set $ws4 "4:"
+    set $ws4 "4:"
     set $ws5 "5:"
     set $ws6 "6:"
     set $ws7 "7:"
@@ -180,6 +189,9 @@ exec ~/.azotebg
     bindsym $mod+Shift+9 move container to workspace $ws9
     bindsym $mod+Shift+0 move container to workspace $ws0
 
+    #Opening a terminial on the terminal workspace
+    bindsym $mod+Shift+Return exec workspace $ws4, $term
+
     # Putting things where they go
     assign [class="Steam"] $ws3
     assign [class="steam_app_*"] $ws0
@@ -187,10 +199,12 @@ exec ~/.azotebg
     for_window [class="steam_app_1182480"] floating enable
 #    for_window [class="steam_app_*"] $ws0
     assign [class="discord"] $ws2
-    assign [app_id="spt"] $ws9
+    assign [app_id="spt*"] $ws9
     assign [app_id="firefox"] $ws5
     for_window [app_id="imv"] floating enable
     for_window [class="xeyes"] floating enable
+    assign [class="Vivaldi-stable"] $ws1
+    for_window [title="Vivaldi Settings:*"] floating enable
 #
 # Layout stuff:
 #
@@ -258,20 +272,25 @@ bindsym $mod+r mode "resize"
 #
 bar {
 	swaybar_command waybar
+	position top
+	hidden_state hide
+	mode hide
+	modifier $mod
 }
 
 ###Auto-start
 #
-exec xrandr --output XWAYLAND0 --primary
-exec --no-startup-id steam
-exec vivaldi-stable
-exec --no-startup-id discord
-exec --no-startup-id "pactl load-module module-remap-sink sink_name=cava-loop"
-exec "alacritty --class spt -e spt"
-exec "alacritty --class spt -e sptlrx"
-exec "alacritty --class spt -e cava"
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-
+exec ~/.scripts/autostart.sh
+#exec xrandr --output XWAYLAND0 --primary
+#exec --no-startup-id steam
+#exec vivaldi-stable
+#exec --no-startup-id discord
+#exec --no-startup-id "pactl load-module module-remap-sink sink_name=cava-loop"
+#exec "alacritty --class spt -e spt"
+#exec "alacritty --class spt -e sptlrx"
+#exec "alacritty --class spt -e cava"
+#exec mako
+#exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 ###Source
 #
 include /etc/sway/config.d/*

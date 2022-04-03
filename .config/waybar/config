@@ -1,11 +1,13 @@
 {
     "layer": "bottom",
     "position": "top",
-    "height": 30,
+    "height": 32,
+    "bar_id": "bar-0",
+    "ipc": true,
 
     "modules-left": ["sway/workspaces", "sway/mode"],
-    "modules-center": ["sway/window"],
-    "modules-right": ["tray", "custom/spotify", "custom/weather", "custom/storage", "pulseaudio", "network", "clock"],
+    "modules-center": ["clock"],
+    "modules-right": ["custom/spotifyd", "pulseaudio", "network", ],
     "sway/mode": {
         "format": " {}"
     },
@@ -18,8 +20,8 @@
         "tooltip": false
     },
     "clock": {
-        "format": "{:%a %d %b %l:%M %p}",
-        "tooltip": false
+        "format": "{:%a %d %b %I:%M %p}",
+	"tooltip-format": "<tt>{calendar}</tt>",
     },
     "network": {
         "format": "{icon}",
@@ -30,7 +32,6 @@
             "ethernet": [""],
             "disconnected": [""]
         },
-        "on-click": "termite -e nmtui",
     "tooltip": false
     },
     "pulseaudio": {
@@ -46,11 +47,29 @@
         "on-click": "pavucontrol",
         "tooltip": false
     },
+    "custom/spotifyd": {
+	"format": " {}",
+	"return-type": "json",
+	"exec": "spdcon -o waybar",
+	"on-click": "spdcon -c PlayPause",
+	"on-click-right": "spdcon -c Next",
+	"on-click-middle": "spdcon -c Previous",
+	"interval": 2
+    },
+    "custom/spotico": {
+	 "interval": 1,
+	 "return-type": "json",
+         "on-click": "playerctl play-pause",
+         "exec": "~/.config/waybar/modules/spotico.sh",
+         "exec-if": "pgrep spotifyd",
+         "escape": true
+	},
     "custom/spotify": {
         "interval": 1,
         "return-type": "json",
-        "exec": "~/.config/waybar/modules/spotify.sh",
-        "exec-if": "pgrep spotify",
+	"on-click": "playerctl play-pause",
+	"exec": "~/.config/waybar/modules/spotify.sh",
+        "exec-if": "pgrep spotifyd",
         "escape": true
     },
     "custom/storage": {
@@ -60,15 +79,6 @@
         "return-type": "json",
         "interval": 60,
         "exec": "~/.config/waybar/modules/storage.sh"
-    },
-    "custom/weather": {
-        "format": "{}",
-        "format-alt": "{alt}: {}",
-        "format-alt-click": "click-right",
-        "interval": 1800,
-        "return-type": "json",
-        "exec": "~/.config/waybar/modules/weather.sh",
-        "exec-if": "ping wttr.in -c1"
     },
     "custom/test": {
         "format": "{}",
