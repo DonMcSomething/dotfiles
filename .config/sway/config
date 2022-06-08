@@ -38,8 +38,8 @@ exec /home/don/.scripts/screenshare.sh
 
     #colors
     # class                 border  backgr. text    indicator child_border
-    client.focused          #2b2b2b #285577 #ffffff #2e9ef4   #2b2b2b
-    client.focused_inactive #011627 #5f676a #ffffff #484e50   #011627
+    client.focused          #2b2b2b #285577 #ffffff #484e50   #2b2b2b
+    client.focused_inactive #011627 #5f676a #ffffff #011627   #011627
     client.unfocused        #011627 #222222 #888888 #292d2e   #011627
 
 
@@ -95,7 +95,7 @@ exec ~/.azotebg
     bindsym $mod+Shift+q kill
 
     # Start your launcher
-    bindsym $mod+space exec $menu
+    bindsym $mod+d exec $menu
 
     #Screenshots
     bindsym Shift+Print exec grim -g "$(slurp)" - | wl-copy
@@ -190,14 +190,16 @@ exec ~/.azotebg
     bindsym $mod+Shift+0 move container to workspace $ws0
 
     #Opening a terminial on the terminal workspace
-    bindsym $mod+Shift+Return exec workspace $ws4, $term
+    bindsym $mod+Shift+Return exec alacritty --class floatingAlacritty -e nvim
 
     # Putting things where they go
     assign [class="Steam"] $ws3
     assign [class="steam_app_*"] $ws0
+    for_window [class="^Steam$" title=".* - Chat"] floating enable
     assign [class="PortalWars-Linux-Shipping"] $ws0
     for_window [class="steam_app_1182480"] floating enable
 #    for_window [class="steam_app_*"] $ws0
+    for_window [app_id="floatingAlacritty"] floating enable
     assign [class="discord"] $ws2
     assign [app_id="spt*"] $ws9
     assign [app_id="firefox"] $ws5
