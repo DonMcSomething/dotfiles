@@ -85,6 +85,7 @@ Plug 'tpope/vim-surround' "-- change surrouding quotes and stuff
 " Misc
 Plug 'lukas-reineke/indent-blankline.nvim' "-- indent line
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} "-- highlighting
+Plug 'terminalnode/sway-vim-syntax' "--swayconfig specific highlighting
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } "-- highlights bracket pairs and stuff
 Plug 'airblade/vim-gitgutter' "-- git stuff
 Plug 'unblevable/quick-scope' "-- leter highlights for jump commands
