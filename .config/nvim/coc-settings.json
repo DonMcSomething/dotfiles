@@ -1,0 +1,54 @@
+{
+	"diagnostic.virtualText": true,
+	"codeLens.enable": true,
+	"suggest.labelMaxLength": 60,
+	"languageserver": {
+		"lua": {
+			"command": "lua-lsp",
+			"filetypes": ["lua"]
+		},
+		"golang": {
+			"command": "gopls",
+			"rootPatterns": ["go.mod"],
+			"filetypes": ["go"]
+		},
+		"bash": {
+			"command": "bash-language-server",
+			"args": ["start"],
+			"filetypes": ["sh"],
+			"ignoredRootPaths": []
+		},
+		"ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
+      "rootPatterns": [".ccls-root", "compile_commands.json"],
+      "initializationOptions": {
+         "cache": {
+           "directory": ".ccls-cache"
+         }
+       }
+     }
+          },
+  "pairs.enableCharacters": ["(", "[", "{", "'", "\"", "`"],
+ "explorer.icon.enableNerdfont": true,
+  "explorer.quitOnOpen": true,
+  "explorer.position": "left",
+  "explorer.file.showHiddenFiles": true,
+  "explorer.file.column.clip.copy": "",
+  "explorer.file.column.clip.cut": "",
+  "explorer.keyMappings.global": {
+    "gk": "expandablePrev",
+    "gj": "expandableNext",
+    "<space>": "toggleSelection",
+    "<tab>": "actionMenu",
+    "h": "collapse",
+    "l": ["expandable?", "expand", "open"],
+    "J": ["toggleSelection", "nodeNext"],
+    "K": ["toggleSelection", "nodePrev"],
+    "<2-LeftMouse>": [
+      "expandable?",
+      ["expanded?", "collapse", "expand"],
+      "open"
+    ]
+  }
+}
