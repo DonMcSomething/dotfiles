@@ -8,7 +8,7 @@ neofetch
 autoload -U colors && colors
 
 # Add .scripts to $PATH
-export PATH=$HOME/.scripts:$PATH
+export PATH=$HOME/.scripts:/home/don/.local/share/gem/ruby/3.0.0/bin:$PATH
 # History
 HISTSIZE=10000
 SAVEHIST=10000
@@ -35,6 +35,7 @@ bindkey -M menuselect 'right' vi-forward-char
 
 # Hotkeys
 alias config='/usr/bin/git --git-dir=/home/don/.cfg/ --work-tree=/home/don'
+alias yeet='paru -Rns'
 source /home/don/.config/zsh/aliases
 # vi mode
 bindkey -v
@@ -93,6 +94,7 @@ eval $(thefuck --alias)
 source /usr/share/fzf/key-bindings.zsh
 # Spaceship Prompt
 
+SPACESHIP_PROMPT_ASYNC=false
 SPACESHIP_PROMPT_ADD_NEWLINE=false
 SPACESHIP_PROMPT_SEPARATE_LINE=false
 SPACESHIP_CHAR_SYMBOL=❯
@@ -114,18 +116,19 @@ SPACESHIP_DOCKER_CONTEXT_SHOW=false
 SPACESHIP_AWS_SHOW=false
 SPACESHIP_CONDA_SHOW=false
 SPACESHIP_VENV_SHOW=false
-SPACESHIP_PYENV_SHOW=false
+SPACESHIP_PYthon_SHOW=false
 SPACESHIP_DOTNET_SHOW=false
 SPACESHIP_EMBER_SHOW=false
-SPACESHIP_KUBECONTEXT_SHOW=false
+SPACESHIP_KUBECTL_CONTEXT_SHOW=false
 SPACESHIP_TERRAFORM_SHOW=false
 SPACESHIP_TERRAFORM_SHOW=false
 SPACESHIP_VI_MODE_SHOW=false
-SPACESHIP_JOBS_SHOW=false
+# SPACESHIP_JOBS_SHOW=false
 
 # Load zsh-syntax-highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 
 autoload -U promptinit; promptinit
+source /usr/lib/spaceship-prompt/spaceship.zsh
 prompt spaceship
 
