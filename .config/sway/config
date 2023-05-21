@@ -202,15 +202,16 @@ output HDMI-A-1 pos 3640 0 mode 1920x1080@120Hz
     for_window [class="steam_app_1182480"] floating enable
  #   assign [class="AppRun.wrapped"] $ws0
     for_window [app_id="floatingAlacritty"] floating enable
-    assign [class="discord"] $ws2
+    assign [app_id="discord"] $ws2
     assign [app_id="spt*"] $ws9
     assign [app_id="firefox"] $ws5
     for_window [app_id="imv"] floating enable
     for_window [class="xeyes"] floating enable
-    assign [class="Vivaldi-stable"] $ws1
+    assign [app_id="vivaldi-stable"] $ws1
     for_window [title="Vivaldi Settings:*"] floating enable
     assign [class="overwatch.exe"] $ws0
     assign [class="Terraria.bin.x86_64"] $ws0
+    assign [class="valheim.x86_64"] $ws0
 #
 # Layout stuff:
 #
