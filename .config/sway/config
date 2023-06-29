@@ -195,7 +195,7 @@ output HDMI-A-1 pos 3640 0 mode 1920x1080@120Hz
     bindsym $mod+Shift+Return exec alacritty --class floatingAlacritty -e nvim
 
     # Putting things where they go
-    assign [class="Steam"] $ws3
+    assign [class="steam"] $ws3
     assign [class="steam_app_*"] $ws0
     for_window [class="^Steam$" title=".* - Chat"] floating enable
     assign [class="PortalWars-Linux-Shipping"] $ws0
@@ -288,7 +288,7 @@ bar {
 ###Auto-start
 #
 exec ~/.scripts/autostart.sh
-#exec xrandr --output XWAYLAND0 --primary
+exec xrandr --output DP-1 --primary
 #exec --no-startup-id steam
 #exec vivaldi-stable
 #exec --no-startup-id discord
